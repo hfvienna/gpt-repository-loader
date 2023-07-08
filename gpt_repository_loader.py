@@ -15,9 +15,14 @@ def get_ignore_list(ignore_file_path):
 
 def should_ignore(file_path, ignore_list):
     for pattern in ignore_list:
-        if fnmatch.fnmatch(file_path, pattern):
+        if pattern.endswith(os.sep):  # This is a directory pattern
+            dir_pattern = pattern.rstrip(os.sep)
+            if file_path.startswith(dir_pattern + os.sep):
+                return True
+        elif fnmatch.fnmatch(file_path, pattern):
             return True
     return False
+
 
 def process_repository(repo_path, ignore_list, output_file):
     for root, _, files in os.walk(repo_path):
