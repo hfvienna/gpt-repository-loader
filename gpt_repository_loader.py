@@ -37,12 +37,7 @@ def process_repository(repo_path, ignore_list, output_file):
                 output_file.write(f"{relative_file_path}\n")
                 output_file.write(f"{contents}\n")
 
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python git_to_text.py /path/to/git/repository [-p /path/to/preamble.txt] [-o /path/to/output_file.txt]")
-        sys.exit(1)
-
-    repo_path = sys.argv[1]
+def main(repo_path, preamble_file=None, output_file_path='output.txt'):
     ignore_file_path = os.path.join(repo_path, ".gptignore")
     if sys.platform == "win32":
         ignore_file_path = ignore_file_path.replace("/", "\\")
@@ -51,14 +46,6 @@ if __name__ == "__main__":
         # try and use the .gptignore file in the current directory as a fallback.
         HERE = os.path.dirname(os.path.abspath(__file__))
         ignore_file_path = os.path.join(HERE, ".gptignore")
-
-    preamble_file = None
-    if "-p" in sys.argv:
-        preamble_file = sys.argv[sys.argv.index("-p") + 1]
-
-    output_file_path = 'output.txt'
-    if "-o" in sys.argv:
-        output_file_path = sys.argv[sys.argv.index("-o") + 1]
 
     if os.path.exists(ignore_file_path):
         ignore_list = get_ignore_list(ignore_file_path)
@@ -76,4 +63,6 @@ if __name__ == "__main__":
     with open(output_file_path, 'a') as output_file:
         output_file.write("--END--")
     print(f"Repository contents written to {output_file_path}.")
-    
+
+if __name__ == "__main__":
+    main(sys.argv[1])  # Use the first command line argument as the repo path
