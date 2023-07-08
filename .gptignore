@@ -16,3 +16,6 @@ LICENSE
 *.jpeg
 *.jpg
 *bin/*
+
+venv/
+.DS_Store
