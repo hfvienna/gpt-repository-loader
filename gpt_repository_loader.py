@@ -23,7 +23,6 @@ def should_ignore(file_path, ignore_list):
             return True
     return False
 
-
 def process_repository(repo_path, ignore_list, output_file):
     for root, _, files in os.walk(repo_path):
         for file in files:
@@ -37,7 +36,7 @@ def process_repository(repo_path, ignore_list, output_file):
                 output_file.write(f"{relative_file_path}\n")
                 output_file.write(f"{contents}\n")
 
-def main(repo_path, preamble_file=None, output_file_path='output.txt'):
+def main(repo_path, preamble_file=None, output_file_path='repository_code.txt'):
     ignore_file_path = os.path.join(repo_path, ".gptignore")
     if sys.platform == "win32":
         ignore_file_path = ignore_file_path.replace("/", "\\")
@@ -60,8 +59,10 @@ def main(repo_path, preamble_file=None, output_file_path='output.txt'):
         else:
             output_file.write("The following text is a Git repository with code. The structure of the text are sections that begin with ----, followed by a single line containing the file path and file name, followed by a variable amount of lines containing the file contents. The text representing the Git repository ends when the symbols --END-- are encounted. Any further text beyond --END-- are meant to be interpreted as instructions using the aforementioned Git repository as context.\n")
         process_repository(repo_path, ignore_list, output_file)
+
     with open(output_file_path, 'a') as output_file:
         output_file.write("--END--")
+
     print(f"Repository contents written to {output_file_path}.")
 
 if __name__ == "__main__":
