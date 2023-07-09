@@ -19,3 +19,6 @@ LICENSE
 
 venv/
 .DS_Store
+*.DS_Store
+
+# Take care when adding extra items to ignore. The ignore functions are brittle.
