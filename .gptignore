@@ -1,21 +1,50 @@
+# Ignore Python-related files and directories
 __pycache__/
 *.pyc
-*.log
-.git/*
-.gptignore
-LICENSE
-.github/*
-.tox/*
-.mypy_cache/*
+*.pyo
+*.pyd
+*~ 
+**/.mypy_cache/
 *.whl
+
+# Logs
+*.log
+
+# Compiled files
 *.tar
 *.tar.gz
-.gitignore
-*.env*
+
+# Binary files
+*bin/*
+
+# Virtual environments
+venv/
+**/.env/
+
+# Ignore macOS system files
+.DS_Store
+._* 
+.Spotlight-V100 
+.Trashes 
+ehthumbs.db 
+Thumbs.db
+
+# Various IDE / tooling / project files
+.tox/*
+.git/*
+.github/*
+.vscode/
+.gptignore
+LICENSE
+
+# Images
 *.png
 *.jpeg
 *.jpg
-*bin/*
 
-venv/
-.DS_Store
+# Ignore specific files
+**/repository_code.txt
+**/clean_code.txt
+**/clean_code.py
+**/question_response_pairs.json
+llms/interactions_log_anthropic_for_debugging.txt
